@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+
+    <style>
+        #MenuNavBar {
+            position: fixed;
+            top: -111px;
+            width: 100%;
+            display: block;
+            transition: top 0.3s;
+            white-space: nowrap;
+            overflow-x: auto;
+            z-index: 10;
+            background-color:white;
+        }
+        
+        #MenuNavBar::-webkit-scrollbar {
+            width: 0px!important;
+        }
+        
+        #MenuNavBar a {
+            float: left;
+            display: inline-block;
+            color: black;
+            text-align: center;
+            padding: 10px;
+            text-decoration: none;
+            font-size: 14px;
+            float:none;
+        }
+        
+        #MenuNavBar a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+        
+        /* new ley add to remove the accordation boder outline */
+
+        .mt-5.mb-5 .card-header button.btn {
+            outline: none !important;
+        box-shadow: none !important;
+        }
+          .img-responsive.three-cont{
+            height: 60% !important;
+          }
+          .img-responsive{
+            height: 272.5px !important;
+
+          }
+          .season-card{
+            width: 20%;
+            height: 250px;
+          }
+
+        </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" integrity="sha512-5A8nwdMOWrSz20fDsjczgUidUBR8liPYU+WymTZP1lmY9G6Oc7HlZv156XqnsgNUzTyMefFTcsFH/tnJE/+xBg==" crossorigin="anonymous" referrerpolicy="no-referrer" /> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha512-MoRNloxbStBcD8z3M/2BmnT+rg4IsMxPkXaGh2zD6LGNNFE80W3onsAhRcMAMrSoyWL9xD7Ert0men7vR8LUZg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <div class="row">
+        <div id="main-content-restPage" class="mt-2 col-12">
+                <div id="restpage-bigbanner">
+                        <div class="row no-padding">
+                                <div class="col-lg-12 col-md-12 col-sm-12 px-0"><a href="#"><img class="img-fluid" id="restpage-img0" style="width:100%" src="https://www.shoperies.com/media/catalog/category/mango_thinbaner.jpg" data-src="https://www.shoperies.com/media/catalog/category/mango_thinbaner.jpg" alt="order" title="Order Now" categoryname="Fresh Indian Mangoes" categoryid="932"></a></div>
+                        </div>
+                
+        </div>
+          <!-- Product Rows for Mobile Devices -->
+        </div>
+        </div>
+        
+                
+ 
+      
+            
+                    <div id="MenuNavBar" class="nav nav-tabs">
+                        <a id="restmenubar-left" style="position:fixed;display: block;background:white"><i class="fa fa-chevron-left"></i></a>
+                        <div class="mr-2 ml-1 mt-1" id="restmenunavbar">
+                        &nbsp; <!--<a href="#" onclick="javascript:gotomainstore(); return false;" class="btn btn-success text-light btn-sm bg-dark"><i class="fa fa-chevron-left"></i> Go to Main Store </a>--></div>
+                        <a id="restmenubar-right" style="right:0px;position:fixed;top:0px;display: block;background:white"><i class="fa fa-chevron-right"></i></a>
+                    </div>
+            
+            <!-- Older 3 image code 
+            
+            <div class="row">
+            <div class="col" id="main-content-restPage">
+                <div id="blockimg1">
+                    <div class="row no-padding">
+                        <div class="col-lg-8 col-md-12 col-sm-12 px-1"><a href="#" ><img class="card big-banner" id='restpage-img0' src="np/image/shoperies_mangoes_large.png" data-src="np/image/shoperies_mangoes_large.png" alt="Mangoes" title="Mangoes"></a></div>
+                        <div class="col-lg-4 no-padding">
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12"><img class="medium-banner card" id='restpage-img1' src="/np/image/seaveg.png" data-src="/np/image/seaveg.png" alt="vegetables" title="vegetables"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12"><img class="medium-banner card" id='restpage-img2' src="/np/image/bigblockimg3bottom.jpg" data-src="/np/image/bigblockimg3bottom.jpg" alt="organic" title="organic"></div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div id="rest-productrow-list"></div>
+            </div>
+            </div>
+            
+            -->
+            
+     
+        
+        <!--Testimonials-->
+        <!--<div class="container px-0">
+            <div id="testimonials" class="carousel slide carousel-fade px-1 py-2" data-ride="carousel">
+            </div>
+        </div>-->
+        
+        
+        <script type="template" id="productrow-rest-template">
+                <div class ="row" id='product-row-container-{{category_id}}'>
+                  <div class="col-12">
+                      <h4 class="text-uppercase">{{category_name}}</h4><hr class="col-1 font-weight-bold bg-success my-2 pb-1">
+                  </div>
+                </div>
+                <div class ="row product-list productrow-rest justify-content-md-center" id="product-row-{{category_id}}">
+               </div>
+               <hr>
+        </script>
+        
+        
+        
+      <section class="">
+        <div class="productrow mt-3 d-block" style="display: none;">
+            <div class="row justify-content-center  text-center">
+            <div class="col-11">
+                    <h4 class="text-center">Featured Mango Product</h4>
+                    <hr class="col-1  font-weight-bold bg-warning text-center mb-2 pb-1">
+            </div>
+            <div class="col-1">
+            <h4><a href="#" class="pull-right badge badge-warning" onclick="if (!window.__cfRLUnblockHandlers) return false; loadCategoryPage(954);return false;">See All</a></h4>
+            </div>
+            
+            </div>
+            <div class="container">
+                <div class="row justify-content-center text-center">
+                    <div class="col-11">
+                        <h4>Featured Mango Product</h4>
+                        <hr class="col-1 font-weight-bold bg-warning text-center mb-2 pb-1 mx-auto">
+                    </div>
+                </div>
+                
+            </div>
+            <div class="row">
+            <div class="col-12 horscroll horscrollcateg" id="parent-catalog-12">
+            <div class="row product-list" id="product-row-maha" style="width: 3200px;">
+                                <div class="product-container">
+                                    <div class="product-item bg-white" data-id="9">
+                                        <div class="product-card text-center">
+                                            <div class="saleribbon red fade"><span>% OFF</span></div> <span id="new-block" class="badge-new fade"> NEW </span> <a onclick="javascript:loadProductDetailPage(9,1);return false;" href="?/PD/RedDeliciousApples5Count/9"><img src="np/image/organic_seal.png" class="organicseal d-none"><img src="https://www.shoperies.com/media/catalog/product/a/p/apple_1.jpg" data-src="https://www.shoperies.com/media/catalog/product/a/p/apple_1.jpg" class="" alt="Red Delicious Apples - 5 Count" title="Red Delicious Apples - 5 Count"></a>
+                                            <div class="info-wrap text-center" onclick="loadProductDetailPage(9,1);return false;">Red Delicious Apples</div>
+                                            <div class="row">    
+                                                <div class="no-padding col price-card my-2" onclick="loadProductDetailPage(9,1)">
+                                                    <p class="font-weight-bold text-success mt-1 mb-0">
+                                                        <span class="font-weight-normal center-block text-black-50 fade"><del></del></span>
+                                                        $2.99 
+                                                    </p>
+                                                    <p class="text-muted my-0 {{size-visibility}}">(5 Count)</p>
+                                                </div>
+                                            </div>
+                                            <div class="row add-to-basket-div hide">
+                                                <button type="button" id="add-to-basket9" class="btn btn-outline-success add-to-basket mb-1 mx-1" data-options="" data-productname="Red Delicious Apples - 5 Count" data-productid="9" title="Basket orders for Scheduled automated deliveries"><i class="fa fa-shopping-basket"></i><b> Add to basket</b></button>
+                                             </div>
+                                             <div class="row add-to-cart-div">
+                                               <button class="btn btn-default btn-oos center-block d-none" disabled=""> Out Of Stock </button>
+                                               <button class="center-block add-to-cart " id="add-to-cart-9" data-test-id="add-button">Add to Cart <i class="fa fa-shopping-cart fa-lg"></i></button>   
+                                               <div class="center-block quantity" id="quantityhomelist9">
+                                              <button class="minus-btn btn-quantity btn-success" type="button" data-options="" data-productid="9" name="button">
+                                                -
+                                              </button>
+                                                <input type="text" class="item-quantity" data-options="" name="qtyoffer9" data-productname="Red Delicious Apples - 5 Count" data-productid="9" data-storeid="1" value="1">
+                                              <button class="plus-btn btn-quantity btn-success" type="button" name="button">
+                                                + <i class="fa fa-shopping-cart fa-lg"></i>
+                                              </button>&nbsp;
+                                              </div>
+                                               </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                
+                
+                                <div class="product-container">
+                                    <div class="product-item bg-white" data-id="21">
+                                        <div class="product-card text-center">
+                                            <div class="saleribbon red fade"><span>% OFF</span></div> <span id="new-block" class="badge-new fade"> NEW </span> <a onclick="javascript:loadProductDetailPage(21,1);return false;" href="?/PD/Banana2Lb/21"><img src="np/image/organic_seal.png" class="organicseal d-none"><img src="https://www.shoperies.com/media/catalog/product/r/i/ripe-banana_5.jpeg" data-src="https://www.shoperies.com/media/catalog/product/r/i/ripe-banana_5.jpeg" class="" alt="Banana - 2 Lb" title="Banana - 2 Lb"></a>
+                                            <div class="info-wrap text-center" onclick="loadProductDetailPage(21,1);return false;">Banana</div>
+                                            <div class="row">    
+                                                <div class="no-padding col price-card my-2" onclick="loadProductDetailPage(21,1)">
+                                                    <p class="font-weight-bold text-success mt-1 mb-0">
+                                                        <span class="font-weight-normal center-block text-black-50 fade"><del></del></span>
+                                                        $2.49 
+                                                    </p>
+                                                    <p class="text-muted my-0 {{size-visibility}}">(2 Lb)</p>
+                                                </div>
+                                            </div>
+                                            <div class="row add-to-basket-div hide">
+                                                <button type="button" id="add-to-basket21" class="btn btn-outline-success add-to-basket mb-1 mx-1" data-options="" data-productname="Banana - 2 Lb" data-productid="21" title="Basket orders for Scheduled automated deliveries"><i class="fa fa-shopping-basket"></i><b> Add to basket</b></button>
+                                             </div>
+                                             <div class="row add-to-cart-div">
+                                               <button class="btn btn-default btn-oos center-block d-none" disabled=""> Out Of Stock </button>
+                                               <button class="center-block add-to-cart " id="add-to-cart-21" data-test-id="add-button">Add to Cart <i class="fa fa-shopping-cart fa-lg"></i></button>   
+                                               <div class="center-block quantity" id="quantityhomelist21">
+                                              <button class="minus-btn btn-quantity btn-success" type="button" data-options="" data-productid="21" name="button">
+                                                -
+                                              </button>
+                                                <input type="text" class="item-quantity" data-options="" name="qtyoffer21" data-productname="Banana - 2 Lb" data-productid="21" data-storeid="1" value="1">
+                                              <button class="plus-btn btn-quantity btn-success" type="button" name="button">
+                                                + <i class="fa fa-shopping-cart fa-lg"></i>
+                                              </button>&nbsp;
+                                              </div>
+                                               </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                
+                
+                               
+                
+                                <div class="product-container">
+                                    <div class="product-item">
+                                        <div class="product-card">
+                                        <br><br><br><br>
+                                             <div class="row">
+                                               <a class="center-block add-to-cart" data-test-id="add-button" onclick="loadCategoryPage('954')">See All &gt;</a>
+                                              </div>
+                                              <br><br><br><br>
+                                               </div>
+                                            </div>
+                                        </div>
+                                    
+                                
+                </div>
+            </div>
+            </div>
+            </div>
+
+      </section>
+
+            <!-- conatining -->
+            <section class="container">
+                <h4 class="text-center text-uppercase mt-4"> Limited quantity Available.Pre-orders Open now  </h4>
+                <hr class="col-1 font-weight-bold bg-warning my-2 pb-1">
+
+                <div><p class="mx-auto text-center py-1 my-1 col-md-12 col-lg-4">Two more weeks! End of the season mangoes are looking great and arriving well, so we are extending a couple more weeks. Mangoes from India will be available through the month June.  <br>These varieties will be available next week. <br>DASHERI &amp; LANGRA (North India), KESAR (Kach)<br>Pre-orders will be opened 6/17. <br>Next shipment arriving 6/21.</p></div>
+                  <div class="container row justify-content-around mt-3 mb-3">
+                    <img class="season-card" src="np/image/season-reward1.jpg" alt="Mango">
+
+                    <img class="season-card" src="np/image/season-reward1.jpg" alt="Mango">
+                    <img class="season-card" src="np/image/season-reward1.jpg" alt="Mango">
+                    <img class="season-card" src="np/image/season-reward1.jpg" alt="Mango">
+                  </div>
+           
+            </section>
+
+          <!-- journey -->
+            <section class="mt-5 mb-5">
+                <h4 class="text-center text-uppercase mt-4 mb-3">Journey of <b>Shoperies</b> Mangoes</h4>
+                <hr class="col-1 font-weight-bold bg-warning my-2 pb-1 mb-5">
+                <div class="container mt-2">
+                    <div class="row justify-content-center align-items-center">
+                        <!-- Carousel Section -->
+                        <div class="col-lg-6">
+                            <div class="container-fluid px-2">
+                                <div id="mangopcarousel" class="carousel slide" data-ride="carousel">
+                                    <div class="carousel-inner">
+                                        <div class="carousel-item active">
+                                            <img class="d-block w-100" src="np/image/shoperies_mango1.png" alt="Mango">
+                                        </div>
+                                        <div class="carousel-item">
+                                            <img class="d-block w-100" src="np/image/shoperies_mango2.png" alt="Mango">
+                                        </div>
+                                        <div class="carousel-item">
+                                            <img class="d-block w-100" src="np/image/shoperies_mango3.png" alt="Mango">
+                                        </div>
+                                        <div class="carousel-item">
+                                            <img class="d-block w-100" src="np/image/shoperies_mango4.png" alt="Mango">
+                                        </div>
+                                    </div>
+                                    <a class="carousel-control-prev" href="#mangopcarousel" role="button" data-slide="prev">
+                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                        <span class="sr-only">Previous</span>
+                                    </a>
+                                    <a class="carousel-control-next" href="#mangopcarousel" role="button" data-slide="next">
+                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                        <span class="sr-only">Next</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End Carousel Section -->
+            
+                        <!-- Description Section -->
+                        <div class="col-lg-6 col-12">
+                            <div class="">
+                                <p class="m-0" style="font-size:16px;">King (<b>Alphonso</b>) or Queen (<b>Kesar</b>) of fruits we have them for you. <b>Mangoes</b> are sourced directly from <b>farms in India</b>. Export quality mangoes are hand-picked, sorted and boxed. Each mango is securely placed in a styrofoam netting so they don't touch each other or get damaged during international transport. What you get is authentic mangoes which are unquestionably tasty and that is the reason <b>Shoperies is trusted by 30,000+ customers</b> who purchase mangoes from us every year. Not just in Washington state, we ship nationwide in USA. We do not use carbide or any chemical for ripening. All Shoperies mangoes are <b>naturally ripened</b>. Mangoes have a rich taste and sweet aroma.
+                                    Shoperies is a trustworthy brand and you can count on us for <b>Quality</b>. You will find more than 6 varieties (Alphonso, Bananapalle, Kesar, Imam Pasand, Rasalu, Goa Mancurd) of Indian mangoes from across India available for sale during their season. Enjoy and spread the love!</p>
+                                <p class="" style="font-size:20px;"><b>We are proud to bring you Mangoes from India.</b></p>
+                            </div>
+                        </div>
+                        <!-- End Description Section -->
+                    </div>
+                </div>
+            </section>
+            
+            <!-- features -->
+            <section id="mangofeatures" class=" container  border-top border-bottom mt-2 mb-3">
+                <h4 class="text-center text-uppercase mt-4"><b>Our</b> Promise &amp; <b>Your</b> Trust</h4>
+                <hr class="col-1 font-weight-bold bg-warning my-2 pb-1">
+                        <div class="mt-5">
+                            <div class="row">
+                                <div class="col-lg-4 col-12">
+                                    <img src="np/image/shoperies_mango_natural.png" style="width:100%"><!-- Features section device mockup-->
+                                    
+                                </div><div class="col-lg-8 col-12">
+                                    <div class="container-fluid px-5">
+                                        <div class="row">
+                                            <div class="col-md-6 mb-5">
+                                                <!-- Feature item-->
+                                                <div class="text-center">
+                                                    <i class="fa fa-envira fa-3x text-success"></i>
+                                                    <h4 class="font-alt" w="">Farm Fresh</h4>
+                                                    <p class="mb-0">Sourced Directly from Farmers in India</p>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 mb-5">
+                                                <!-- Feature item-->
+                                                <div class="text-center">
+                                                    <i class="fa fa-chain-broken text-success fa-3x"></i>
+                                                    <h4 class="font-alt">Chemical Free</h4>
+                                                    <p class="mb-0">Carbide &amp; Chemical Free</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6 mb-5 mb-md-0">
+                                                <!-- Feature item-->
+                                                <div class="text-center">
+                                                    <i class="fa fa-legal text-success fa-3x"></i>
+                                                    <h4 class="font-alt">100% Authentic</h4>
+                                                    <p class="mb-0">Authentic &amp; Premium Quality Natural Mangoes</p>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <!-- Feature item-->
+                                                <div class="text-center">
+                                                    <i class="fa fa-inbox text-success fa-3x"></i>
+                                                    <h4 class="font-alt">Hand Picked</h4>
+                                                    <p class="mb-0">Specially hand picked, selected &amp; packed for you</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </section>
+            
+        <div class="container px-0 hide mt-5 mb-5" id="mangodiv">
+            <div id="mangotestimonials" class="carousel slide carousel-fade px-1 py-2 my-2" data-ride="carousel">
+                <h4 class="text-center text-uppercase">What <b>our customers</b> are saying</h4>
+                <hr class="col-1 font-weight-bold bg-warning my-2 pb-1">
+                <div class="controls testimonial_control pull-right">
+                    <a class="left fa fa-chevron-left btn btn-default testimonial_btn" href="#mangotestimonials" data-slide="prev"></a>
+                    <a class="right fa fa-chevron-right btn btn-default testimonial_btn" href="#mangotestimonials" data-slide="next"></a>
+                </div>
+                <ol class="carousel-indicators">
+                    <li data-target="#mangotestimonials" data-slide-to="0" class="bg-success active"></li>
+                    <li data-target="#mangotestimonials" data-slide-to="1" class="bg-success"></li>
+                    <li data-target="#mangotestimonials" data-slide-to="2" class="bg-success"></li>
+                    <li data-target="#mangotestimonials" data-slide-to="3" class="bg-success"></li>
+                </ol>
+                <div class="carousel-inner carousel-caption">
+                    <div class="carousel-item active">
+                        <div class="row">
+                            <div class="col-md-6 col-lg-6 py-3">
+                                <div class=" row justify-content-start"><i class="fa fa-quote-left  text-light fa-3x"></i></div>
+                                <div class="testimonial min-vh-75" style="min-height:220px">
+                                <p>These Mangoes were really sweet and tasty, we tried every single variety last year. Definitely recommended.</p>
+                                <div class="customername">Snehal</div>
+                                </div>
+                            </div>
+                            <div class="d-none d-md-block col-md-6 col-lg-6 py-3">
+                                <div class=" row justify-content-start"><i class="fa fa-quote-left  text-light fa-3x"></i></div>
+                                <div class="testimonial  min-vh-75" style="min-height:220px">
+                                <p>Mangoes had good aroma. Feels nostalgic. Thanks for bringing this to us.</p>
+                                <div class="customername"> Ravinder</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="row">
+                            <div class="col-md-6 col-lg-6 py-3">
+                                <div class=" row justify-content-start"><i class="fa fa-quote-left  text-light fa-3x"></i></div>
+                                <div class="testimonial  min-vh-75" style="min-height:220px">
+                                <p>Overall very happy with the types of mangoes we received. Enjoyed thoroughly with family.</p>
+                                <div class="customername">- Rekha P</div>
+                                </div>
+                            </div>
+                            <div class="d-none d-md-block col-md-6 col-lg-6 py-3">
+                                <div class=" row justify-content-start"><i class="fa fa-quote-left  text-light fa-3x"></i></div>
+                                <div class="testimonial min-vh-75" style="min-height:220px">
+                                <p>Bought few boxes and did not last for long. Delivery and notifications were useful and was on time. </p>
+                                <div class="customername">- Raj M</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="row">
+                            <div class="col-md-6 col-lg-6 py-3">
+                                <div class=" row justify-content-start"><i class="fa fa-quote-left  text-light fa-3x"></i></div>
+                                <div class="testimonial  min-vh-75" style="min-height:220px">
+                                <p>We have been buying mangoes from Shoperies for over 4 years now. Simply amazed with the packing, delivery and consistency of these mangoes. Their mangoes are simply the best our favorites are Alphonso, Kesar and Rasalu. Though Banganapalle gives the satisfaction of cutting eating them.</p>
+                                <div class="customername">- Viji V</div>
+                                </div>
+                            </div>
+                            <div class="d-none d-md-block col-md-6 col-lg-6 py-3">
+                                <div class=" row justify-content-start"><i class="fa fa-quote-left  text-light fa-3x"></i></div>
+                                <div class="testimonial  min-vh-75" style="min-height:220px">
+                                <p>Getting indian mangoes in Seattle is a delicacy, that too in such prestine and tasty conditions simply wow. Good job Shoperies. </p>
+                                <div class="customername">- Rajesh</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="row">
+                            <div class="col-md-6 col-lg-6 py-3">
+                                <div class=" row justify-content-start"><i class="fa fa-quote-left  text-light fa-3x"></i></div>
+                                <div class="testimonial  " style="min-height:220px">
+                                <p>The wait is worth it. We tried the banganapalle and they were simply awesome. Though it takes few days to ripen fully in seaatle their taste is heavenly.</p>
+                                <div class="customername">- Venkatesh</div>
+                                </div>
+                            </div>
+                            <div class="d-none d-md-block col-md-6 col-lg-6 py-3">
+                                <div class=" row justify-content-start"><i class="fa fa-quote-left  text-light fa-3x"></i></div>
+                                <div class="testimonial  " style="min-height:220px">
+                                <p>My whole family became mango zombies after eating a box of Rasalu. They were so fibrous and tasty.  </p>
+                                <div class="customername">- Babu M</div>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            <hr>
+             
+
+            <!-- accordition -->
+            <div class="mt-5 mb-5">
+                <h4 class="text-center mb-3"><b>FAQs</b></h4>
+                <hr class="col-1 font-weight-bold bg-warning my-2 pb-1 mb-3">
+            <div class="accordion" id="accordionExample">
+        
+
+                    <!-- Card 1 -->
+                    <div class="card">
+                        <div class="card-header" id="headingOne">
+                            <h2 class="mb-0">
+                                <button class="btn  btn-block  btn-outline-focus  text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                    What are pre-orders?
+                                </button>
+                            </h2>
+                        </div>
+                        <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                            <div class="card-body">
+                                Shoperies brings various products on pre-orders. One of the popular & seasonal products is Mangoes from India. You make a purchase now and get the delivery once Shoperies receives seasonal Mangoes from India.
+                            </div>
+                        </div>
+                    </div>
+                
+                    <!-- Card 2 -->
+                    <div class="card">
+                        <div class="card-header" id="headingTwo">
+                            <h2 class="mb-0">
+                                <button class="btn  btn-block text-left  btn-outline-focus btn-outline-none collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                    Why should I buy during pre-order and not buy when its available?
+                                </button>
+                            </h2>
+                        </div>
+                        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                            <div class="card-body">
+                                Because of huge demand for Mangoes, we do not promise or guarantee any availability. All the customers who have made Pre-Orders will get the delivery first and if we have any Mangoes left, they are made available for sale.
+                            </div>
+                        </div>
+                    </div>
+                
+                    <!-- Card 3 -->
+                    <div class="card">
+                        <div class="card-header" id="headingThree">
+                            <h2 class="mb-0">
+                                <button class="btn btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                    Can I cancel my pre-order?
+                                </button>
+                            </h2>
+                        </div>
+                        <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+                            <div class="card-body">
+                                Pre-orders are done to help us plan shipments, reduce wastage and keep prices low. Pre-orders within a week of delivery cannot be cancelled, you can move it to a different week window in the season. If you must cancel a pre-order there will be a cancellation fee of $15 charged. Shoperies reserve the right to determine cancellation of orders.
+                            </div>
+                        </div>
+                    </div>
+                
+                    <!-- Card 4 -->
+                    <div class="card">
+                        <div class="card-header" id="headingFour">
+                            <h2 class="mb-0">
+                                <button class="btn  btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                    Is there a timeline for delivery?
+                                </button>
+                            </h2>
+                        </div>
+                        <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
+                            <div class="card-body">
+                                ETAs and delivery details will be shared in the email as they are made available.
+                            </div>
+                        </div>
+                    </div>
+                
+                    <!-- Card 5 -->
+                    <div class="card">
+                        <div class="card-header" id="headingFive">
+                            <h2 class="mb-0">
+                                <button class="btn  btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                                    How do I know if the Mango is fully ripe?
+                                </button>
+                            </h2>
+                        </div>
+                        <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordionExample">
+                            <div class="card-body">
+                                Mango is fully ripe when the mangoes feel soft with a gentle squeeze and when you smell that fragrance around the stem end of the fruit. Don't go by the color, Red Mangoes doesn't mean they are ripe, red color around the stem of the mango doesn't mean it will taste better than other mangoes.
+                            </div>
+                        </div>
+                    </div>
+                
+                    <!-- Card 6 -->
+                    <div class="card">
+                        <div class="card-header" id="headingSix">
+                            <h2 class="mb-0">
+                                <button class="btn  btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                                    How to safely store Mangoes?
+                                </button>
+                            </h2>
+                        </div>
+                        <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#accordionExample">
+                            <div class="card-body">
+                                If the Mangoes are rock hard, It is not ripe yet, please store them at room temperature. Storing the Mangoes wrapped in newspaper or some brown paper fastens the process of ripening, this is one of the age old technique to ripe the Mango faster. Once the mangoes are ripe, i,e., softer to gentle squeeze, you can refrigerate for few days to prolong the shelf life after they are fully ripe.
+                            </div>
+                        </div>
+                    </div>
+                
+                    <!-- Card 7 -->
+                    <div class="card">
+                        <div class="card-header" id="headingSeven">
+                            <h2 class="mb-0">
+                                <button class="btn  btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+                                    What is the refund policy on Mangoes?
+                                    
+                                </button>
+                            </h2>
+                        </div>
+                        <div id="collapseSeven" class="collapse" aria-labelledby="headingSeven" data-parent="#accordionExample">
+                            <div class="card-body">
+                                Mangoes from India is a seasonal item, highly perishable item that we bring for our customers. The farms we work with follow best practices for growing the crop; they are picked right, naturally ripened, and follow export process guidelines every step along the way. These mangoes go through a lot of process harvesting, picking, packing, testing, FDA Clearance, flight scheduling, local and international transits before it comes to your door. We make sure to have all these processes done in the shortest and best possible way of time with most affordable cost. We ask customers to be part of the community supporting farmers, supply chain, and grocers who make this happen.
+                                <br/><br/>All sales are final on Alphonso mangoes. No refunds or exchanges. So far we have a <b>1.25%</b> complaint ratio this season.
+                                <br/><br/>We accept feedback so please share pictures if you are not able to enjoy the fruit.
+                                <br/><br/>If 1 or more mangoes are completely spoiled, black, large white fibrous tissue covering most of the mango, send us pictures and let us know. We will provide a pro-rated refund. Shoperies will determine refund amounts, full refund cannot be provided to cover some cost of bringing the fruit.
+                                <br/><br/>If more than half of your case of mangoes are bad, this will happen in an unfortunate burn, or injury to your mango box, we are happy to replace your box with another box where possible.
+                            </div>
+                        </div>
+                    </div>
+                
+                    <!-- Card 8 -->
+                    <div class="card">
+                        <div class="card-header" id="headingEight">
+                            <h2 class="mb-0">
+                                <button class="btn  btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
+                                    How do you make sure our mangoes come in good shape?
+                                </button>
+                            </h2>
+                        </div>
+                        <div id="collapseEight" class="collapse" aria-labelledby="headingEight" data-parent="#accordionExample">
+                            <div class="card-body">
+                                Your mangoes are hand picked and packed semi ripe. They are verified at every distribution center and does not go through more than 48 hours of transit All the way from India to your door step. All our packages are shipped insured with excellent rated delivery services.
+                            </div>
+                        </div>
+                    </div>
+                
+                    <!-- Card 9 -->
+                    <div class="card">
+                        <div class="card-header" id="headingNine">
+                            <h2 class="mb-0">
+                                <button class="btn  btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseNine" aria-expanded="false" aria-controls="collapseNine">
+                                    How many mangoes are in a box?
+                                </button>
+                            </h2>
+                        </div>
+                        <div id="collapseNine" class="collapse" aria-labelledby="headingNine" data-parent="#accordionExample">
+                            <div class="card-body">
+                                Naturally grown mangoes come in different sizes. Count of mangoes in a box cannot be promised but each box will weigh between 2.8kgs to 3kgs. 8-12 counts of mangoes in each box, according to the weight and what fits in the box.
+                            </div>
+                        </div>
+                    </div>
+                
+                    <!-- Card 10 -->
+                    <div class="card">
+                        <div class="card-header" id="headingTen">
+                            <h2 class="mb-0">
+                                <button class="btn  btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseTen" aria-expanded="false" aria-controls="collapseTen">
+                                    Can I return mango box if I don't like it?
+                                </button>
+                            </h2>
+                        </div>
+                        <div id="collapseTen" class="collapse" aria-labelledby="headingTen" data-parent="#accordionExample">
+                            <div class="card-body">
+                                If you don't like the mangoes you receive, we request you to send an email with a picture showing what's wrong with mangoes to cs@shoperies.com and we will work with you to either refund or replace the mangoes. You need to contact the same day the mango box was delivered because of the nature of product which is perishable and will spoil with time.
+                            </div>
+                        </div>
+                    </div>
+                
+                    <!-- Card 11 -->
+                    <div class="card">
+                        <div class="card-header" id="headingEleven">
+                            <h2 class="mb-0">
+                                <button class="btn  btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseEleven" aria-expanded="false" aria-controls="collapseEleven">
+                                    How many mangoes will be in a box?
+                                </button>
+                            </h2>
+                        </div>
+                        <div id="collapseEleven" class="collapse" aria-labelledby="headingEleven" data-parent="#accordionExample">
+                            <div class="card-body">
+                                3 kgs for Alphonso and Kesar, about 9-12 mangoes, depends on the size.
+                                <br/>4 Kgs for Banganapalle about 9-12 mangoes depends on size.
+                                <br/>Count will depend on the mango size. We can't tell how many in a box as our mangoes will be decent size and we tend to provide the number that will fit in the box and satisfy the weights.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header" id="headingTwelve">
+                            <h2 class="mb-0">
+                                <button class="btn  btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseTwelve" aria-expanded="false" aria-controls="collapseTwelve">
+                                    When will I get my delivery?
+                                </button>
+                            </h2>
+                        </div>
+                        <div id="collapseTwelve" class="collapse" aria-labelledby="headingTwelve" data-parent="#accordionExample">
+                            <div class="card-body">
+                                Check order number, check the desired delivery date on the order to know that. All pre-orders are queued and delivered as mangoes arrive. There are quite a few variables in mangoes as flight schedule, customs and crop availability. We do best effort to honor the desired delivery date suggested by Shoperies. We shall bring within 4 days if a date is missed.
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Card 13 -->
+                    <div class="card">
+                        <div class="card-header" id="headingThirteen">
+                            <h2 class="mb-0">
+                                <button class="btn  btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseThirteen" aria-expanded="false" aria-controls="collapseThirteen">
+                                    Can I order my mangoes for now?
+                                </button>
+                            </h2>
+                        </div>
+                        <div id="collapseThirteen" class="collapse" aria-labelledby="headingThirteen" data-parent="#accordionExample">
+                            <div class="card-body">
+                                We give priority to pre-orders. Our mangoes are pre-booked as we like to send to our customers as early as we receive them and they stay in our warehouse not more than 24 hours. We suggest customers to order these in pre-order for getting them fresh on suggested dates.
+                            </div>
+                        </div>
+                    </div>
+                
+                </div>
+                
+              </div>
+
+        
+           
+        <hr>
+        <!-- images for product -->
+        <div class="row my-2">
+            <div id="mangoimages" class="carousel slide carousel-fade px-1 py-2" data-ride="carousel">
+            <h4 class="text-center text-uppercase">Mango Pictures</h4>
+            <p class="text-center font-italic my-1">from previous seasons</p>
+            <hr class="col-1 font-weight-bold bg-warning my-2 pb-1">
+            <div class="controls testimonial_control pull-right">
+                <a class="left fa fa-chevron-left btn btn-default testimonial_btn" href="#mangoimages" data-slide="prev"></a>
+                <a class="right fa fa-chevron-right btn btn-default testimonial_btn" href="#mangoimages" data-slide="next"></a>
+            </div>
+            <ol class="carousel-indicators">
+                <li data-target="#mangoimages" data-slide-to="0" class="bg-success active"></li>
+                <li data-target="#mangoimages" data-slide-to="1" class="bg-success"></li>
+                <li data-target="#mangoimages" data-slide-to="2" class="bg-success"></li>
+            </ol>
+            <div class="carousel-inner carousel-caption mt-5" style="height: 400px !important;">
+                <div class="carousel-item active">
+                    <div class="row">
+                        <div class="col-md-3 col-lg-3 py-3 ">
+                            <img class="img-responsive " src="np/image/shoperies_mangoes_9.jpeg" />
+                        </div>
+                        <div class="d-none d-md-block col-md-3 col-lg-3 py-3">
+                             <img class="img-responsive" src="np/image/shoperies_mangoes_10.jpeg"/>
+                        </div>
+                         <div class="col-md-3 col-lg-3 py-3">
+                             <img class="img-responsive" src="np/image/shoperies_mangoes_11.jpeg"/>
+                        </div>
+                        <div class="d-none d-md-block col-md-3 col-lg-3 py-3">
+                             <img class="img-responsive" src="np/image/shoperies_mangoes_12.jpeg"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="row">
+                        <div class="col-md-3 col-lg-3 py-3">
+                            <img class="img-responsive three-cont" src="np/image/shoperies_mangoes_7.jpg"/>
+                        </div>
+                        <div class="d-none d-md-block col-md-3 col-lg-3 py-3">
+                             <img class="img-responsive three-cont" src="np/image/shoperies_mangoes_8.jpg"/>
+                        </div>
+                         <div class="col-md-3 col-lg-3 py-3">
+                             <img class="img-responsive three-cont" src="np/image/shoperies_mangoes_3.jpg"/>
+                        </div>
+                        <div class="d-none d-md-block col-md-3 col-lg-3 py-3">
+                             <img class="img-responsive three-cont" src="np/image/shoperies_mangoes_4.jpg"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="row">
+                        <div class="col-md-3 col-lg-3 py-3">
+                            <img class="img-responsive three-cont" src="np/image/shoperies_mangoes_5.jpg"/>
+                        </div>
+                        <div class="d-none d-md-block col-md-3 col-lg-3 py-3">
+                             <img class="img-responsive three-cont" src="np/image/shoperies_mangoes_6.jpg"/>
+                        </div>
+                         <div class="col-md-3 col-lg-3 py-3">
+                             <img class="img-responsive three-cont" src="np/image/shoperies_mangoes_1.jpg"/>
+                        </div>
+                        <div class="d-none d-md-block col-md-3 col-lg-3 py-3">
+                             <img class="img-responsive three-cont" src="np/image/shoperies_mangoes_2.jpg"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    
+        </div>
+    </div>
+     
+
+
+        <div class="row feature-row">
+            <div class="col-lg-4 col-md-4 col-sm-12">
+            <div class="row">
+            <div class="feature-image col-lg-3"><img alt="Best Price" src="np/image/bestprice_03.jpg" data-src="np/image/bestprice_03.jpg" class="img-fluid center-block align-middle" title="price match garunteed with local store"></div>
+            <div class="col-lg-9">
+            <div class="feature-row-name">Best Prices &amp; Offers</div>
+            <div class="feature-row-description">Cheaper prices than your local supermarket, We beat all Local store prices and Quality, all the time!</div>
+            </div>
+            </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-12">
+            <div class="row">
+            <div class="feature-image col-lg-3"><img alt="Huge Product Selection" src="np/image/wide_assortment.jpg" data-src="np/image/wide_assortment.jpg" class="img-fluid center-block align-middle" title="Choose from 5000+ products across food, personal care, household &amp; other categories. All Indian Groceries."></div>
+            <div class="col-lg-9">
+            <div class="feature-row-name">Wide Assortment</div>
+            <div class="feature-row-description">Choose from 5000+ products across food, personal care, household &amp; other categories. All Indian Groceries.</div>
+            </div>
+            </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-12">
+            <div class="row">
+            <div class="feature-image col-lg-3"><img alt="Easy Returns" src="np/image/easyreturns_02.jpg" data-src="np/image/easyreturns_02.jpg" class="img-fluid center-block align-middle" title="Convinience in a click"></div>
+            <div class="col-lg-9">
+            <div class="feature-row-name">Hassle Free Returns</div>
+            <div class="feature-row-description">Not satisfied with a product? Get Replacement or Refund on all products with our Hassle Free Return Policy. </div>
+            </div>
+            </div>
+            </div>
+            </div>
+
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+            <!-- Popper.js -->
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
+            
+            <!-- Bootstrap JS -->
+            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha512-M5KW3ztuIICmVIhjSqXe01oV2bpe248gOxqmlcYrEzAvws7Pw3z6BK0iGbrwvdrUQUhi3eXgtxp5I8PDo9YfjQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</body>
+</html>
